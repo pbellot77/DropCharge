@@ -15,6 +15,8 @@
 		BA76ABB11E5B7155005B9D4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA76ABAF1E5B7155005B9D4C /* Main.storyboard */; };
 		BA76ABB31E5B7155005B9D4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BA76ABB21E5B7155005B9D4C /* Assets.xcassets */; };
 		BA76ABB61E5B7155005B9D4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA76ABB41E5B7155005B9D4C /* LaunchScreen.storyboard */; };
+		BA76ABBF1E5BD9CA005B9D4C /* Platform5Across.sks in Resources */ = {isa = PBXBuildFile; fileRef = BA76ABBE1E5BD9CA005B9D4C /* Platform5Across.sks */; };
+		BA76ABC11E5BDE67005B9D4C /* CoinArrow.sks in Resources */ = {isa = PBXBuildFile; fileRef = BA76ABC01E5BDE67005B9D4C /* CoinArrow.sks */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +30,8 @@
 		BA76ABB21E5B7155005B9D4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BA76ABB51E5B7155005B9D4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BA76ABB71E5B7155005B9D4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BA76ABBE1E5BD9CA005B9D4C /* Platform5Across.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Platform5Across.sks; sourceTree = "<group>"; };
+		BA76ABC01E5BDE67005B9D4C /* CoinArrow.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = CoinArrow.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +48,7 @@
 		BA76AB991E5B7155005B9D4C = {
 			isa = PBXGroup;
 			children = (
+				BA76ABBD1E5BD98A005B9D4C /* Scene Files */,
 				BA76ABA41E5B7155005B9D4C /* DropCharge */,
 				BA76ABA31E5B7155005B9D4C /* Products */,
 			);
@@ -71,6 +76,15 @@
 				BA76ABB71E5B7155005B9D4C /* Info.plist */,
 			);
 			path = DropCharge;
+			sourceTree = "<group>";
+		};
+		BA76ABBD1E5BD98A005B9D4C /* Scene Files */ = {
+			isa = PBXGroup;
+			children = (
+				BA76ABBE1E5BD9CA005B9D4C /* Platform5Across.sks */,
+				BA76ABC01E5BDE67005B9D4C /* CoinArrow.sks */,
+			);
+			name = "Scene Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -133,11 +147,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BA76ABC11E5BDE67005B9D4C /* CoinArrow.sks in Resources */,
 				BA76ABB11E5B7155005B9D4C /* Main.storyboard in Resources */,
 				BA76ABA81E5B7155005B9D4C /* GameScene.sks in Resources */,
 				BA76ABB31E5B7155005B9D4C /* Assets.xcassets in Resources */,
 				BA76ABB61E5B7155005B9D4C /* LaunchScreen.storyboard in Resources */,
 				BA76ABAA1E5B7155005B9D4C /* Actions.sks in Resources */,
+				BA76ABBF1E5BD9CA005B9D4C /* Platform5Across.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +330,7 @@
 				BA76ABBC1E5B7155005B9D4C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
