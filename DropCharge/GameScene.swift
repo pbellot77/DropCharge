@@ -54,9 +54,29 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 	var playerState = PlayerStatus.idle
 	let motionManager = CMMotionManager()
 	var xAcceleration = CGFloat(0)
+	let cameraNode = SKCameraNode()
+	var lava: SKSpriteNode!
+	var lastUpdateTimeInterval: TimeInterval = 0
+	var deltaTime: TimeInterval = 0
 	
 	override func update(_ currentTime: TimeInterval) {
-		updatePlayer()
+		
+		if lastUpdateTimeInterval < 0 {
+			deltaTime = currentTime - lastUpdateTimeInterval
+		} else {
+			deltaTime = 0
+		}
+		lastUpdateTimeInterval = currentTime
+		if isPaused {
+			return
+		}
+		if gameState == .playing {
+			updateCamera()
+			updateLevel()
+			updatePlayer()
+			updateLava(deltaTime)
+			updateCollisionLava()
+		}
 	}
 	
 	override func didMove(to view: SKView) {
@@ -69,6 +89,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		
 		let scale = SKAction.scale(to: 1.0, duration: 0.5)
 		fgNode.childNode(withName: "Ready")!.run(scale)
+		
+		camera?.position = CGPoint(x: size.width/2, y: size.height/2)
 	}
 	
 	func didBegin(_ contact: SKPhysicsContact) {
@@ -101,6 +123,9 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		fgNode.childNode(withName: "Bomb")?.run(SKAction.hide())
 		platform5Across = loadForegroundOverlayTemplate("Platform5Across")
 		coinArrow = loadForegroundOverlayTemplate("CoinArrow")
+		lava = fgNode.childNode(withName: "Lava") as! SKSpriteNode
+		addChild(cameraNode)
+		camera = cameraNode
 	}
 	
 	func setupLevel() {
@@ -277,7 +302,47 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
 		}
 	}
 	
+	func updateCamera() {
+		let cameraTarget = convert(player.position, to: fgNode)
+		var targetPositionY = cameraTarget.y - (size.height * 0.10)
+		let lavaPos = convert(lava.position, to: fgNode)
+		targetPositionY = max(targetPositionY, lavaPos.y)
+		
+		let diff = targetPositionY - camera!.position.y
+		let cameraLagFactor = CGFloat(0.2)
+		let lagDiff = diff * cameraLagFactor
+		let newCameraPositionY = camera!.position.y + lagDiff
+		
+		camera!.position.y = newCameraPositionY
+	}
 	
+	func updateLava(_ dt: TimeInterval) {
+		let bottomOfScreenY = camera!.position.y - (size.height / 2)
+		let bottomeOfScreenYFg = convert(CGPoint(x: 0, y: bottomOfScreenY), to: fgNode).y
+		let lavaVelocityY = CGFloat(120)
+		let lavaStep = lavaVelocityY * CGFloat(dt)
+		var newLavaPositionY = lava.position.y + lavaStep
+		newLavaPositionY = max(newLavaPositionY, (bottomeOfScreenYFg - 125.0))
+		lava.position.y = newLavaPositionY
+	}
+	
+	func updateCollisionLava() {
+		if player.position.y < lava.position.y + 90 {
+			playerState = .lava
+			print("Lava!")
+			boostPlayer()
+		}
+	}
+	
+	func updateLevel() {
+		let cameraPos = camera!.position
+		if cameraPos.y > levelPositionY - (size.height * 0.55) {
+			createBackgroundOverlay()
+			while lastOverlayPosition.y < levelPositionY {
+				addRandomForegroundOverlay()
+			}
+		}
+	}
 	
 	
 	
